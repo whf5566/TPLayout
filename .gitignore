@@ -1,0 +1,17 @@
+# apple's hidden file
+.DS_Store
+.Trashes
+
+# xcode build files. slash at the end means folder, not a single file.
+DerivedData/
+build/
+Build/
+
+# do not contain any user specific settings
+xcuserdata/
+*.xcscmblueprint
+
+# exclude jetbrain setting folders
+.idea/
+Examples/Pods
+Examples/Carthage
