@@ -1,0 +1,16 @@
+PODS:
+  - TPLayout (1.0.2)
+
+DEPENDENCIES:
+  - TPLayout (from `../`)
+
+EXTERNAL SOURCES:
+  TPLayout:
+    :path: ../
+
+SPEC CHECKSUMS:
+  TPLayout: 85222e8b3648757dead46f4db892b08b05ba1377
+
+PODFILE CHECKSUM: f29c3fd582f54ce043df5ac0399c53e69c54509a
+
+COCOAPODS: 1.2.1

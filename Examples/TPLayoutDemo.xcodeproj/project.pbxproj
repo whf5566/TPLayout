@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31E45AB36B4CD818BF92928F /* libPods-TPLayoutDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 761C748CD1FB7AEA02AA5036 /* libPods-TPLayoutDemo.a */; };
 		E2022C8E1F3B0207008D48E6 /* FrameExampleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2022C8B1F3B0207008D48E6 /* FrameExampleListViewController.m */; };
 		E2022C8F1F3B0207008D48E6 /* FrameExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2022C8D1F3B0207008D48E6 /* FrameExampleViewController.m */; };
 		E2022CC51F3BF45E008D48E6 /* FrameExampleAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2022CAA1F3BF45E008D48E6 /* FrameExampleAnimatedView.m */; };
@@ -35,8 +36,6 @@
 		E29A31F61F16140F00662934 /* MASExampleLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A31AB1F14C27B00662934 /* MASExampleLabelView.m */; };
 		E29A31FA1F16247100662934 /* MASExampleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A31B11F14C27B00662934 /* MASExampleScrollView.m */; };
 		E29A31FB1F16293600662934 /* MASExampleMarginView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A31B71F14C27B00662934 /* MASExampleMarginView.m */; };
-		E2B4E1221F5D5FFF0093A4EA /* TPLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4E1211F5D5FFF0093A4EA /* TPLayout.framework */; };
-		E2B4E1231F5D5FFF0093A4EA /* TPLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4E1211F5D5FFF0093A4EA /* TPLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E2FA9DE71F063D7100C694A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FA9DE61F063D7100C694A1 /* main.m */; };
 		E2FA9DEA1F063D7100C694A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FA9DE91F063D7100C694A1 /* AppDelegate.m */; };
 		E2FA9DF21F063D7100C694A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2FA9DF11F063D7100C694A1 /* Assets.xcassets */; };
@@ -50,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E2B4E1231F5D5FFF0093A4EA /* TPLayout.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,7 +118,6 @@
 		E29A31B81F14C27B00662934 /* MASExampleDistributeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASExampleDistributeView.h; sourceTree = "<group>"; };
 		E29A31B91F14C27B00662934 /* MASExampleDistributeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASExampleDistributeView.m; sourceTree = "<group>"; };
 		E2B4E11F1F5D5FE40093A4EA /* TPLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TPLayout.framework; path = Carthage/Build/iOS/TPLayout.framework; sourceTree = "<group>"; };
-		E2B4E1211F5D5FFF0093A4EA /* TPLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TPLayout.framework; path = Carthage/Build/iOS/TPLayout.framework; sourceTree = "<group>"; };
 		E2FA9DE21F063D7100C694A1 /* TPLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2FA9DE61F063D7100C694A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E2FA9DE81F063D7100C694A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -135,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2B4E1221F5D5FFF0093A4EA /* TPLayout.framework in Frameworks */,
+				31E45AB36B4CD818BF92928F /* libPods-TPLayoutDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +246,6 @@
 		E2FA9DD91F063D7000C694A1 = {
 			isa = PBXGroup;
 			children = (
-				E2B4E1211F5D5FFF0093A4EA /* TPLayout.framework */,
 				E2FA9DE41F063D7100C694A1 /* TPLayoutDemo */,
 				E2FA9DE31F063D7100C694A1 /* Products */,
 				C5E043FBF4F6DDFB8B8419F4 /* Pods */,
