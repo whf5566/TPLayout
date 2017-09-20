@@ -20,6 +20,10 @@
 		E2B4E1111F5D3D660093A4EA /* UIView+TPFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = E2B4E0F61F5D37260093A4EA /* UIView+TPFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E2B4E1121F5D3D6D0093A4EA /* UIView+TPAutolayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E2B4E0EF1F5D37250093A4EA /* UIView+TPAutolayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E2B4E1181F5D42630093A4EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B4E1171F5D42620093A4EA /* UIKit.framework */; };
+		E2B895DF1F7250970037A815 /* UIViewController+TPAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B895DB1F7250960037A815 /* UIViewController+TPAutolayout.m */; };
+		E2B895E01F7250970037A815 /* UILayoutGuide+TPAutolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B895DC1F7250960037A815 /* UILayoutGuide+TPAutolayout.m */; };
+		E2B895E11F7250970037A815 /* UIViewController+TPAutolayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E2B895DD1F7250960037A815 /* UIViewController+TPAutolayout.h */; };
+		E2B895E21F7250970037A815 /* UILayoutGuide+TPAutolayout.h in Headers */ = {isa = PBXBuildFile; fileRef = E2B895DE1F7250960037A815 /* UILayoutGuide+TPAutolayout.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		E2B4E0F61F5D37260093A4EA /* UIView+TPFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+TPFrame.h"; sourceTree = "<group>"; };
 		E2B4E0F71F5D37260093A4EA /* UIView+TPAutolayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+TPAutolayout.m"; sourceTree = "<group>"; };
 		E2B4E1171F5D42620093A4EA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E2B895DB1F7250960037A815 /* UIViewController+TPAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TPAutolayout.m"; sourceTree = "<group>"; };
+		E2B895DC1F7250960037A815 /* UILayoutGuide+TPAutolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILayoutGuide+TPAutolayout.m"; sourceTree = "<group>"; };
+		E2B895DD1F7250960037A815 /* UIViewController+TPAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TPAutolayout.h"; sourceTree = "<group>"; };
+		E2B895DE1F7250960037A815 /* UILayoutGuide+TPAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILayoutGuide+TPAutolayout.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,10 @@
 				E2B4E0EE1F5D37240093A4EA /* NSLayoutConstraint+TPAutolayout.m */,
 				E2B4E0F21F5D37250093A4EA /* TPLayoutAttributeItem.h */,
 				E2B4E0F31F5D37250093A4EA /* TPLayoutAttributeItem.m */,
+				E2B895DE1F7250960037A815 /* UILayoutGuide+TPAutolayout.h */,
+				E2B895DC1F7250960037A815 /* UILayoutGuide+TPAutolayout.m */,
+				E2B895DD1F7250960037A815 /* UIViewController+TPAutolayout.h */,
+				E2B895DB1F7250960037A815 /* UIViewController+TPAutolayout.m */,
 				E2B4E0E51F5D36B70093A4EA /* Info.plist */,
 			);
 			path = TPLayout;
@@ -104,9 +116,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2B895E11F7250970037A815 /* UIViewController+TPAutolayout.h in Headers */,
 				E2B4E0E61F5D36B70093A4EA /* TPLayout.h in Headers */,
 				E2B4E10D1F5D3D370093A4EA /* TPLayoutMacros.h in Headers */,
 				E2B4E1111F5D3D660093A4EA /* UIView+TPFrame.h in Headers */,
+				E2B895E21F7250970037A815 /* UILayoutGuide+TPAutolayout.h in Headers */,
 				E2B4E1121F5D3D6D0093A4EA /* UIView+TPAutolayout.h in Headers */,
 				E2B4E10E1F5D3D450093A4EA /* NSArray+TPAutolayout.h in Headers */,
 				E2B4E10F1F5D3D4C0093A4EA /* NSLayoutConstraint+TPAutolayout.h in Headers */,
@@ -182,11 +196,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2B895E01F7250970037A815 /* UILayoutGuide+TPAutolayout.m in Sources */,
 				E2B4E0FA1F5D37260093A4EA /* NSLayoutConstraint+TPAutolayout.m in Sources */,
 				E2B4E0F81F5D37260093A4EA /* UIView+TPFrame.m in Sources */,
 				E2B4E0F91F5D37260093A4EA /* NSArray+TPAutolayout.m in Sources */,
 				E2B4E0FB1F5D37260093A4EA /* TPLayoutAttributeItem.m in Sources */,
 				E2B4E0FC1F5D37260093A4EA /* UIView+TPAutolayout.m in Sources */,
+				E2B895DF1F7250970037A815 /* UIViewController+TPAutolayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
