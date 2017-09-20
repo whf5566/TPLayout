@@ -36,6 +36,7 @@
 		E29A31F61F16140F00662934 /* MASExampleLabelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A31AB1F14C27B00662934 /* MASExampleLabelView.m */; };
 		E29A31FA1F16247100662934 /* MASExampleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A31B11F14C27B00662934 /* MASExampleScrollView.m */; };
 		E29A31FB1F16293600662934 /* MASExampleMarginView.m in Sources */ = {isa = PBXBuildFile; fileRef = E29A31B71F14C27B00662934 /* MASExampleMarginView.m */; };
+		E2B895D21F7221F60037A815 /* MASExampleLayouGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B895D11F7221F60037A815 /* MASExampleLayouGuideView.m */; };
 		E2FA9DE71F063D7100C694A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FA9DE61F063D7100C694A1 /* main.m */; };
 		E2FA9DEA1F063D7100C694A1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E2FA9DE91F063D7100C694A1 /* AppDelegate.m */; };
 		E2FA9DF21F063D7100C694A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2FA9DF11F063D7100C694A1 /* Assets.xcassets */; };
@@ -117,6 +118,8 @@
 		E29A31B71F14C27B00662934 /* MASExampleMarginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASExampleMarginView.m; sourceTree = "<group>"; };
 		E29A31B81F14C27B00662934 /* MASExampleDistributeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASExampleDistributeView.h; sourceTree = "<group>"; };
 		E29A31B91F14C27B00662934 /* MASExampleDistributeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASExampleDistributeView.m; sourceTree = "<group>"; };
+		E2B895D01F7221F60037A815 /* MASExampleLayouGuideView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MASExampleLayouGuideView.h; sourceTree = "<group>"; };
+		E2B895D11F7221F60037A815 /* MASExampleLayouGuideView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MASExampleLayouGuideView.m; sourceTree = "<group>"; };
 		E2FA9DE21F063D7100C694A1 /* TPLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2FA9DE61F063D7100C694A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E2FA9DE81F063D7100C694A1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -213,6 +216,8 @@
 				E29A31B71F14C27B00662934 /* MASExampleMarginView.m */,
 				E29A31B81F14C27B00662934 /* MASExampleDistributeView.h */,
 				E29A31B91F14C27B00662934 /* MASExampleDistributeView.m */,
+				E2B895D01F7221F60037A815 /* MASExampleLayouGuideView.h */,
+				E2B895D11F7221F60037A815 /* MASExampleLayouGuideView.m */,
 			);
 			name = AutolayoutViews;
 			sourceTree = "<group>";
@@ -429,6 +434,7 @@
 				E28F170F1F289E8C007642E5 /* MASExampleUpdateView.m in Sources */,
 				E2022C8E1F3B0207008D48E6 /* FrameExampleListViewController.m in Sources */,
 				E29A31EF1F14ED5E00662934 /* MASExampleConstantsView.m in Sources */,
+				E2B895D21F7221F60037A815 /* MASExampleLayouGuideView.m in Sources */,
 				E263AED31F0F8AAA008D0D67 /* MainViewController.m in Sources */,
 				E280E8E41F1E143400F95760 /* MASExampleAttributeChainingView.m in Sources */,
 				E2FA9DE71F063D7100C694A1 /* main.m in Sources */,

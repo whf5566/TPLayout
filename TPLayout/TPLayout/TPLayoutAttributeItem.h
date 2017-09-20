@@ -73,7 +73,9 @@
 @class TPLayoutAttributeItem;
 @interface TPLayoutAttributeItem : TPLayoutAttributeBaseItem <TPLayoutAttributeItem *, NSLayoutConstraint *>
 
-- (instancetype)initWithLayoutItem:(id)firstItem attribute:(NSLayoutAttribute)layoutAttribute;
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithView:(UIView *)view attribute:(NSLayoutAttribute)layoutAttribute;
+- (instancetype)initWithView:(UIView *)view layoutItem:(id)layoutItem attribute:(NSLayoutAttribute)layoutAttribute;
 
 @end
 
@@ -82,6 +84,7 @@
 @class TPLayoutCompositeAttributeItem;
 @interface TPLayoutCompositeAttributeItem : TPLayoutAttributeBaseItem <TPLayoutCompositeAttributeItem *, NSArray<NSLayoutConstraint *> *>
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithAttributeItemArray:(NSArray *)array;
 
 @end

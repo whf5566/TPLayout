@@ -53,16 +53,17 @@
 
 @end
 
-@interface UIView (TPAutolayout_Constraints)
+
+
+@interface NSObject (TPAutolayout_Constraints)
 
 - (NSHashTable<NSLayoutConstraint *> *)al_installedConstraints;
 
-- (UIView *(^)(void))al_resetAll;
-- (void)al_resetAllConstraints;
-- (void)al_resetConstraints:(NSLayoutAttribute)attribute;
-- (void)al_resetConstraintsWithAttributes:(NSArray *)attributeList;
+@end
 
-- (NSArray<NSLayoutConstraint *> *)al_constraintsWithAttribute:(NSLayoutAttribute)attribute;
-- (NSArray<NSLayoutConstraint *> *)al_constraintsWithAttributes:(NSArray *)attributeList;
+@interface UIView (TPAutolayout_Constraints)
+
+- (UIView *(^)(void))al_resetAll;
+- (void)al_resetConstraints:(NSLayoutAttribute)attribute;
 
 @end

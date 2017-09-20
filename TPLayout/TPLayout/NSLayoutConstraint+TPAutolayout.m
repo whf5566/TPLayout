@@ -11,6 +11,14 @@
 
 #define TPCGFloatEqual(A,B) ((ABS((A) - (B))) < FLT_EPSILON)
 
+@interface NSLayoutConstraint (TPAutolayout_private)
+
+- (UIView *)tp_firstView;
+- (UIView *)tp_secondView;
+- (UIView *)tp_installView;
+
+@end
+
 
 @implementation NSLayoutConstraint (TPAutolayout)
 
@@ -96,13 +104,11 @@
 }
 
 - (UIView *)tp_firstView {
-    NSAssert(self.firstItem == nil || [self.firstItem isKindOfClass:UIView.class],@"the firstItem of NSLayoutConstraint must be UIView");
-    return (UIView *)self.firstItem;
+    return [self.firstItem isKindOfClass:UIView.class] ? self.firstItem : nil;
 }
 
 - (UIView *)tp_secondView {
-    NSAssert(self.secondItem == nil || [self.secondItem isKindOfClass:UIView.class],@"the secondItem of NSLayoutConstraint must be UIView");
-    return (UIView *)self.secondItem;
+    return [self.secondItem isKindOfClass:UIView.class] ? self.secondItem : nil;
 }
 
 - (UIView *)tp_installView {
@@ -136,7 +142,7 @@
         NSAssert(installView, @"Can't constrain two views that not have a install view");
         [installView addConstraint:self];
     }
-    NSHashTable *hashTable = [self.tp_firstView al_installedConstraints];
+    NSHashTable *hashTable = [self.firstItem al_installedConstraints];
     if (![hashTable containsObject:self]) {
         [hashTable addObject:self];
     }
@@ -153,14 +159,14 @@
         [installView removeConstraint:self];
     }
 
-    [self.tp_firstView.al_installedConstraints removeObject:self];
+    [[self.firstItem al_installedConstraints] removeObject:self];
 }
 
 + (void)tp_activateConstraints:(NSArray<NSLayoutConstraint *> *)constraints {
     if ([NSLayoutConstraint respondsToSelector:@selector(activateConstraints:)]) {
         [NSLayoutConstraint activateConstraints:constraints];
         for (NSLayoutConstraint *constraint in constraints) {
-            NSHashTable *hashTable = constraint.tp_firstView.al_installedConstraints;
+            NSHashTable *hashTable = [constraint.firstItem al_installedConstraints];
             if (![hashTable containsObject:constraint]) {
                 [hashTable addObject:constraint];
             }
@@ -176,7 +182,7 @@
     if ([NSLayoutConstraint respondsToSelector:@selector(deactivateConstraints:)]) {
         [NSLayoutConstraint deactivateConstraints:constraints];
         for (NSLayoutConstraint *constraint in constraints) {
-            [constraint.tp_firstView.al_installedConstraints removeObject:constraint];
+            [[constraint.firstItem al_installedConstraints] removeObject:constraint];
         }
     } else {
         for (NSLayoutConstraint *constraint in constraints) {

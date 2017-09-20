@@ -27,6 +27,8 @@ FOUNDATION_EXPORT const unsigned char TPLayoutVersionString[];
 #import <TPLayout/TPLayoutAttributeItem.h>
 #import <TPLayout/NSArray+TPAutolayout.h>
 #import <TPLayout/NSLayoutConstraint+TPAutolayout.h>
+#import <TPLayout/UIViewController+TPAutolayout.h>
+#import <TPLayout/UILayoutGuide+TPAutolayout.h>
 
 #else
 
@@ -38,5 +40,6 @@ FOUNDATION_EXPORT const unsigned char TPLayoutVersionString[];
 #import "TPLayoutAttributeItem.h"
 #import "NSArray+TPAutolayout.h"
 #import "NSLayoutConstraint+TPAutolayout.h"
-
+#import "UIViewController+TPAutolayout.h"
+#import "UILayoutGuide+TPAutolayout.h"
 #endif

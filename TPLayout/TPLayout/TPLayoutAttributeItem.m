@@ -64,7 +64,8 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
 @interface TPLayoutAttributeItem ()
 @property (nonatomic, assign, readonly) TPLayoutAttributeOperation operation;
 @property (nonatomic, assign, readonly) NSLayoutAttribute layoutAttribute;
-@property (nonatomic, weak) id constraintItem;
+@property (nonatomic, weak, readonly) id constraintItem;
+@property (nonatomic, weak, readonly) UIView *view;
 @property (nonatomic, assign) UILayoutPriority priorityValue;
 @property (nonatomic, assign) CGFloat multiplierValue;
 
@@ -85,14 +86,19 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
 
 @implementation TPLayoutAttributeItem
 
-- (instancetype)initWithLayoutItem:(id)firstItem attribute:(NSLayoutAttribute)layoutAttribute {
-    return [self initWithLayoutItem:firstItem attribute:layoutAttribute operation:TPLayoutAttributeOperationNone];
+- (instancetype)initWithView:(UIView *)view attribute:(NSLayoutAttribute)layoutAttribute {
+    return [self initWithView:view layoutItem:view attribute:layoutAttribute];
 }
 
-- (instancetype)initWithLayoutItem:(id)firstItem attribute:(NSLayoutAttribute)layoutAttribute operation:(TPLayoutAttributeOperation)operation {
+- (instancetype)initWithView:(UIView *)view layoutItem:(id)layoutItem attribute:(NSLayoutAttribute)layoutAttribute {
+    return [self initWithView:view layoutItem:layoutItem attribute:layoutAttribute operation:TPLayoutAttributeOperationNone];
+}
+
+- (instancetype)initWithView:(UIView *)view layoutItem:(id)layoutItem attribute:(NSLayoutAttribute)layoutAttribute operation:(TPLayoutAttributeOperation)operation {
     self = [super init];
     if (self) {
-        _constraintItem = firstItem;
+        _constraintItem = layoutItem;
+        _view = view;
         _layoutAttribute = layoutAttribute;
         _priorityValue = UILayoutPriorityRequired;
         _multiplierValue = 1.0;
@@ -102,21 +108,42 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
 }
 
 - (NSLayoutConstraint *)constraintWithItem:(id)secondItem relatedBy:(NSLayoutRelation)relation priority:(UILayoutPriority)priority {
-    id view2 = nil;
+    id layoutItem2 = nil;
+    UIView *layoutView2 = nil;
     NSLayoutAttribute attr2 = NSLayoutAttributeNotAnAttribute;
     CGFloat constant = 0;
     
     if ([secondItem isKindOfClass:NSValue.class]) {
         if (self.layoutAttribute != NSLayoutAttributeHeight && self.layoutAttribute != NSLayoutAttributeWidth) {
-            view2 = ((UIView *)self.constraintItem).superview;
-            attr2 = self.layoutAttribute;
+            if ([self.constraintItem isKindOfClass:UIView.class]) {
+                layoutItem2 = self.view.superview;
+                layoutView2 = self.view.superview;
+                attr2 = self.layoutAttribute;
+            }
+ #if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 90000)
+            else if ([self.constraintItem isKindOfClass:UILayoutGuide.class]) {
+                layoutItem2 = self.view;
+                layoutView2 = self.view;
+                attr2 = self.layoutAttribute;
+            }
+#endif
         }
         constant = [self _constantWithAttribute:self.layoutAttribute value:secondItem];
     } else if ([secondItem isKindOfClass:UIView.class]) {
-        view2 = (UIView *)secondItem;
+        layoutItem2 = secondItem;
+        layoutView2 = secondItem;
         attr2 = self.layoutAttribute;
-    } else if ([secondItem isKindOfClass:TPLayoutAttributeItem.class]) {
-        view2 = [(TPLayoutAttributeItem *)secondItem constraintItem];
+    }
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 90000)
+    else if ([secondItem isKindOfClass:UILayoutGuide.class]) {
+        layoutItem2 = secondItem;
+        layoutView2 = ((UILayoutGuide *)secondItem).owningView;
+        attr2 = self.layoutAttribute;
+    }
+#endif
+    else if ([secondItem isKindOfClass:TPLayoutAttributeItem.class]) {
+        layoutItem2 = [(TPLayoutAttributeItem *)secondItem constraintItem];
+        layoutView2 = [(TPLayoutAttributeItem *)secondItem view];
         attr2 = [(TPLayoutAttributeItem *)secondItem layoutAttribute];
         NSAssert(TPIsLayoutAttributesSuited(self.layoutAttribute, attr2), @"Can't constraint for unsuited layoutAttributes");
     } else if ([secondItem isKindOfClass:TPLayoutCompositeAttributeItem.class]) {
@@ -131,11 +158,12 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
         [(UIView *)self.constraintItem setTranslatesAutoresizingMaskIntoConstraints:NO];
     }
     
-    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.constraintItem attribute:self.layoutAttribute relatedBy:relation toItem:view2 attribute:attr2 multiplier:self.multiplierValue constant:constant];
+    NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.constraintItem attribute:self.layoutAttribute relatedBy:relation toItem:layoutItem2 attribute:attr2 multiplier:self.multiplierValue constant:constant];
     constraint.priority = priority;
     
     if (self.operation == TPLayoutAttributeOperationUpdate) {
-        NSLayoutConstraint *existConstraint = [self _constraintSimilarTo:constraint];
+        UIView *installView = [self _installViewForFirstView:self.view sencondView:layoutView2 firstAttribute:self.layoutAttribute];
+        NSLayoutConstraint *existConstraint = [self _constraintSimilarTo:constraint installView:installView];
         if (existConstraint) {
             existConstraint.constant = constraint.constant;
             if((![existConstraint tp_isInstalled])) {
@@ -149,10 +177,36 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
     return constraint;
 }
 
+- (UIView *)_installViewForFirstView:(UIView *)firstView sencondView:(UIView *)sencondView firstAttribute:(NSLayoutAttribute)firstAttribute {
+    UIView *installView = nil;
+    if (firstView && sencondView) {
+        installView = [self _commonSuperViewFor:firstView view2:sencondView];
+    } else {
+        if (firstAttribute == NSLayoutAttributeWidth || firstAttribute == NSLayoutAttributeHeight) {
+            installView = firstView;
+        } else {
+            installView = firstView.superview;
+        }
+    }
+    return installView;
+}
 
-- (NSLayoutConstraint *)_constraintSimilarTo:(NSLayoutConstraint *)newConstraint  {
+- (UIView *)_commonSuperViewFor:(UIView *)view1 view2:(UIView *)view2 {
+    UIView *commonSuperview = nil;
+    UIView *startView = view1;
+    while (startView) {
+        if ([view2 isDescendantOfView:startView]) {
+            commonSuperview = startView;
+            break;
+        }
+        startView = startView.superview;
+    }
+    return commonSuperview;
+}
+
+- (NSLayoutConstraint *)_constraintSimilarTo:(NSLayoutConstraint *)newConstraint installView:(UIView *)installView {
     NSLayoutConstraint *existConstraint = nil;
-    NSArray *installedConstraints = newConstraint.tp_firstView.al_installedConstraints.allObjects;
+    NSArray *installedConstraints = [newConstraint.firstItem al_installedConstraints].allObjects;
     for (NSLayoutConstraint *constraint in installedConstraints) {
         if ([constraint tp_isSimilarTo:newConstraint]) {
             existConstraint = constraint;
@@ -161,7 +215,7 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
     }
     
     if (!existConstraint) {
-        for (NSLayoutConstraint *constraint in newConstraint.tp_installView.constraints.reverseObjectEnumerator) {
+        for (NSLayoutConstraint *constraint in installView.constraints.reverseObjectEnumerator) {
             if ([constraint tp_isSimilarTo:newConstraint]) {
                 existConstraint = constraint;
                 break;
@@ -299,7 +353,7 @@ typedef NS_ENUM(NSInteger, TPLayoutAttributeOperation) {
 }
 
 - (instancetype)initWithAttributeItemArray:(NSArray *)array operation:(TPLayoutAttributeOperation)operation {
-    self = [self init];
+    self = [super init];
     if (self) {
         _itemArray = array;
         _operation = operation;

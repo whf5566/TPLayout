@@ -1,19 +1,17 @@
 //
-//  UIView+TPAutolayout.m
+//  UILayoutGuide+TPAutolayout.m
 //  TPLayout
 //
-//  Created by weihuafeng on 2017/7/6.
+//  Created by weihuafeng on 2017/9/19.
 //  Copyright © 2017年 tpkit. All rights reserved.
 //
 
-#import "UIView+TPAutolayout.h"
+#import "UILayoutGuide+TPAutolayout.h"
 #import "TPLayoutAttributeItem.h"
-#import "NSLayoutConstraint+TPAutolayout.h"
-#import <objc/runtime.h>
 
-#pragma mark - TPAutolayout
+#if (__IPHONE_OS_VERSION_MAX_ALLOWED >= 90000)
 
-@implementation UIView (TPAutolayout)
+@implementation UILayoutGuide (TPAutolayout)
 
 - (TPLayoutAttributeItem *)al_left {
     return [self _tpLayoutAttributeItemWith:NSLayoutAttributeLeft];
@@ -59,8 +57,6 @@
     return [self _tpLayoutAttributeItemWith:NSLayoutAttributeBaseline];
 }
 
-#if (__IPHONE_OS_VERSION_MIN_REQUIRED >= 80000)
-
 - (TPLayoutAttributeItem *)al_firstBaseline {
     return [self _tpLayoutAttributeItemWith:NSLayoutAttributeFirstBaseline];
 }
@@ -101,14 +97,12 @@
     return [self _tpLayoutAttributeItemWith:NSLayoutAttributeCenterYWithinMargins];
 }
 
-#endif
-
 - (TPLayoutCompositeAttributeItem *)al_size {
-    return [[TPLayoutCompositeAttributeItem alloc] initWithAttributeItemArray:@[self.al_width,self.al_height]];
+    return [[TPLayoutCompositeAttributeItem alloc] initWithAttributeItemArray:@[self.al_width, self.al_height]];
 }
 
 - (TPLayoutCompositeAttributeItem *)al_center {
-    return [[TPLayoutCompositeAttributeItem alloc] initWithAttributeItemArray:@[self.al_centerX,self.al_centerY]];
+    return [[TPLayoutCompositeAttributeItem alloc] initWithAttributeItemArray:@[self.al_centerX, self.al_centerY]];
 }
 
 - (TPLayoutCompositeAttributeItem *)al_edges {
@@ -116,76 +110,9 @@
 }
 
 - (TPLayoutAttributeItem *)_tpLayoutAttributeItemWith:(NSLayoutAttribute)attribute {
-    return [[TPLayoutAttributeItem alloc] initWithView:self attribute:attribute];
-}
-
-
-@end
-
-
-#pragma mark - TPAutolayout_Constraints
-
-@implementation NSObject (TPAutolayout_Constraints)
-
-- (NSHashTable<NSLayoutConstraint *> *)al_installedConstraints {
-    NSHashTable *constraints = objc_getAssociatedObject(self, _cmd);
-    if (!constraints) {
-        constraints = [[NSHashTable alloc] initWithOptions:NSPointerFunctionsWeakMemory capacity:8];
-        objc_setAssociatedObject(self, _cmd, constraints, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
-    return constraints;
+    return [[TPLayoutAttributeItem alloc] initWithView:self.owningView layoutItem:self attribute:attribute];
 }
 
 @end
 
-@interface UIView (TPAutolayout_Constraints_private)
-
-- (void)al_resetAllConstraints;
-- (void)al_resetConstraintsWithAttributes:(NSArray *)attributeList;
-- (NSArray<NSLayoutConstraint *> *)al_constraintsWithAttribute:(NSLayoutAttribute)attribute;
-- (NSArray<NSLayoutConstraint *> *)al_constraintsWithAttributes:(NSArray *)attributeList;
-
-@end
-
-@implementation UIView (TPAutolayout_Constraints)
-
-- (UIView *(^)(void))al_resetAll {
-    return ^{
-        [self al_resetAllConstraints];
-        return self;
-    };
-}
-
-- (void)al_resetAllConstraints {
-    [NSLayoutConstraint tp_deactivateConstraints:self.al_installedConstraints.allObjects];
-}
-
-- (void)al_resetConstraints:(NSLayoutAttribute)attribute {
-    [self al_resetConstraintsWithAttributes:@[@(attribute)]];
-}
-
-- (void)al_resetConstraintsWithAttributes:(NSArray *)attributeList {
-    [NSLayoutConstraint tp_deactivateConstraints:[self al_constraintsWithAttributes:attributeList]];
-}
-
-- (NSArray<NSLayoutConstraint *> *)al_constraintsWithAttribute:(NSLayoutAttribute)attribute {
-    return [self al_constraintsWithAttributes:@[@(attribute)]];
-}
-
-- (NSArray<NSLayoutConstraint *> *)al_constraintsWithAttributes:(NSArray *)attributeList {
-    NSMutableArray *constraintList = [NSMutableArray array];
-    NSArray *installedList = self.al_installedConstraints.allObjects;
-    for (NSLayoutConstraint *constraint in installedList) {
-        for (NSNumber *obj in attributeList) {
-            if (constraint.firstAttribute == obj.integerValue) {
-                [constraintList addObject:constraint];
-            }
-        }
-    }
-
-    return constraintList.count > 0 ? constraintList : nil;
-}
-
-
-@end
-
+#endif

@@ -49,9 +49,6 @@
 
 - (BOOL)tp_isSimilarTo:(NSLayoutConstraint *)constraint;
 
-- (UIView *)tp_firstView;
-- (UIView *)tp_secondView;
-- (UIView *)tp_installView;
 - (BOOL)tp_isInstalled;
 
 - (void)tp_autoInstall;

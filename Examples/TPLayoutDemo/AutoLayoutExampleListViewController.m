@@ -23,6 +23,7 @@
 #import "MASExampleAspectFitView.h"
 #import "MASExampleMarginView.h"
 //#import "MASExampleDistributeView.h"
+#import "MASExampleLayouGuideView.h"
 
 static NSString *const kCellReuseIdentifier = @"kCellReuseIdentifier";
 
@@ -88,9 +89,9 @@ static NSString *const kCellReuseIdentifier = @"kCellReuseIdentifier";
             [[AutoLayoutExampleViewController alloc] initWithTitle:@"Attribute Chaining"
                                                          viewClass:MASExampleAttributeChainingView.class],
             [[AutoLayoutExampleViewController alloc] initWithTitle:@"Margins"
-                                                         viewClass:MASExampleMarginView.class],
-//            [[AutoLayoutExampleViewController alloc] initWithTitle:@"Views Distribute"
-//                                                         viewClass:MASExampleDistributeView.class],
+                                                         viewClass:MASExampleMarginView.class],            
+            [[AutoLayoutExampleViewController alloc] initWithTitle:@"UILayoutGuide "
+                                                                     viewClass:MASExampleLayouGuideView.class],
         ];
     }
 
