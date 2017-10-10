@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name                  = 'TPLayout'
-  s.version               = '1.0.2'
+  s.version               = '1.0.3'
   s.homepage              = 'https://github.com/whf5566/TPLayout'
   s.license               = { :type => 'MIT', :file => 'LICENSE' }
-  s.author                = { 'huafeng.wei' => 'whf5566@gmail.com' }
+  s.author                = { 'whf5566' => 'whf5566@gmail.com' }
   s.social_media_url      = 'https://www.wellphone.me'
   s.platform              = :ios, '8.0'
   s.ios.deployment_target = '8.0'
-  s.source                = { :git => 'https://github.com/whf5566/TPLayout.git', :tag => 'v1.0.2' }
+  s.source                = { :git => 'https://github.com/whf5566/TPLayout.git', :tag => 'v1.0.3' }
   s.source_files          = 'TPLayout/TPLayout'
   s.public_header_files   = 'TPLayout/TPLayout/*.{h}'
   s.requires_arc          = true
